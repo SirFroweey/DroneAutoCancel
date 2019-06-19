@@ -41,6 +41,10 @@ ln -s /Applications/ngrok ngrok
 - The Github `event` event should report back as successful with a green `200` status code, as shown below:
 ![alt text](https://i.imgur.com/TU7bilO.png "Successful ping")
 
+- Pushing to your repository where you setup your web-hook (presumably your `BriteCore` fork), should report back with a successful `200` response as shown below:
+
+![alt text](https://i.imgur.com/BvcCk1s.png "Successful push")
+
 
 ## Setting up local dev environment (Docker)
 > To be completed... (Coming soon)
