@@ -21,11 +21,13 @@ The flask app then compares the sha1 `ref` sent by either of those aforementione
 - Run `pip install -r requirements.txt` or even better, setup a virtualenv and activate it then install the requirements.
 - Download `ngrok` and move it into your `Applications/` folder.
 - Create a symlink, as shown here: 
-```# cd into your local bin directory
+```
+# cd into your local bin directory
 cd /usr/local/bin
 
 # create symlink
-ln -s /Applications/ngrok ngrok```
+ln -s /Applications/ngrok ngrok
+```
 - Run `python hook.py` on your terminal of choice
 - Execute `ngrok http 5000`
 - Setup your repo's Github webhook as shown below and point it to your `ngrok` `https` URL that we generated earlier (via the `ngrok http 5000` command):
