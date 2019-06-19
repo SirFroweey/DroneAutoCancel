@@ -3,7 +3,7 @@
 
 ## What this addresses
 On `push` and on `pull_request` events are sent to the flask web-hook app and is authenticated using a SECRET env var named `WEBHOOK_VERIFY_TOKEN`. This token is then compared with the SECRET setup on your Github web-hook settings page for your repository as shown below:
-https://imgur.com/kbhtFhK
+![alt text](https://i.imgur.com/kbhtFhK.png "URL and secret setup and response type")
 
 The flask app then compares the sha1 `ref` sent by either of those aforementioned `events` with the latest (last) Drone IO builds `hash`, if the hash do not match, that Drone build is then canceled (or stopped) via the Drone API. The Drone API agent is authenticated via a few env vars, listed below, so please assign these env vars on the machine running your web-hook.
 
