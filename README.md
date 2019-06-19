@@ -1,7 +1,7 @@
 # Drone IO Auto-Cancel
 > A Github webhook implementation to address Drone IO's missing "auto-cancelation of previous builds" feature.
 
-## What this addresses
+## How it works
 On `push` and on `pull_request` events are sent to the flask web-hook app and is authenticated using a SECRET env var named `WEBHOOK_VERIFY_TOKEN`. This token is then compared with the SECRET setup on your Github web-hook settings page for your repository as shown below:
 ![alt text](https://i.imgur.com/kbhtFhK.png "URL and secret setup and response type")
 
