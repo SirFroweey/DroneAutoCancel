@@ -6,7 +6,7 @@ from flask import Flask, request, abort, jsonify
 
 from api import *
 
-WEBHOOK_VERIFY_TOKEN = os.getenv('WEBHOOK_VERIFY_TOKEN') #mkAKNSAJB%93249sb$
+WEBHOOK_VERIFY_TOKEN = os.getenv('WEBHOOK_VERIFY_TOKEN') # secret
 
 app = Flask(__name__)
 
