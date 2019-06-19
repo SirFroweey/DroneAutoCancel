@@ -26,18 +26,17 @@ def get_digest(request):
 
 
 def process_event(event_type, data):
-    print "EVENT:", event_type, "DATA:", data
     payload = {}
     if event_type == 'ping':
         payload = {
             'success': True
         }
-    elif event_type == ('pull_request' or 'push'):
-        sha_hash = data['ref']
+    elif (event_type == 'pull_request') or (event_type == 'push'):
+        sha_hash = data['after'] # currently pushed commits sha1 hash 
         response = cancel_latest_build(sha_hash)
-        payload = {'status': response['message']}
+        payload = {'message': response[0]['message'], 'github_event_sha_hash': sha_hash, 'latest_drone_build_sha_hash': response[1]['after']}
     else:
-        abort(400, 'Unsupported event type.')
+        abort(400, 'Unsupported event type -> {event}'.format(event=event_type))
     return jsonify(payload), 200
 
 

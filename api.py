@@ -58,11 +58,15 @@ class Drone:
         Stop latest (last) build.
         :param compare_sha_hash (optional) (str) -> to be provided by github web hook? To be used to ensure latest build is not the recently 
         pushed build.
+
+        Returns tuple -> (json object, latest drone build json object).
         """
         last_build = self.get_latest_build()
         if (compare_sha_hash and compare_sha_hash != last_build['after']) or (not compare_sha_hash):
-            return self.stop_build(last_build['number'])
-        raise Exception("Latest (last) build cannot be recently pushed build.")
+            return (self.stop_build(last_build['number']), last_build)
+        else:
+            response = {"message": "Latest (last) build cannot be recently pushed build."}
+            return (response, last_build)
 
 
 if __name__ == "__main__":
