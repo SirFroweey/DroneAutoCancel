@@ -8,18 +8,18 @@ DRONE_REPO_NAME = os.getenv('DRONE_REPO_NAME')
 
 
 class Drone:
-	"""DroneIO API interface.
-	"""
-	def __init__(self, host, access_token, repo_owner, repo_name):
-		"""
-		:param access_token -> Drone API token.
-		:param repo_owner (str) -> Repo owner username.
-		:param repo_name (str) -> Repo name.
-		"""
-		self.host = host
-		self.access_token = access_token
-		self.repo_owner = repo_owner
-		self.repo_name = repo_name
+    """DroneIO API interface.
+    """
+    def __init__(self, host, access_token, repo_owner, repo_name):
+    """
+    :param access_token -> Drone API token.
+    :param repo_owner (str) -> Repo owner username.
+    :param repo_name (str) -> Repo name.
+    """
+    self.host = host
+    self.access_token = access_token
+    self.repo_owner = repo_owner
+    self.repo_name = repo_name
 
 	def get_builds(self):
 		"""
