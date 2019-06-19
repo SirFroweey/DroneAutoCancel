@@ -14,7 +14,7 @@ The flask app then compares the sha1 `ref` sent by either of those aforementione
 - `DRONE_REPO_OWNER_USERNAME`: your github username, i.e.: `SirFroweey` is mine. Should be set to `IntuitiveWebSolutions` if we decide to host this app on our DevOps infrastructure.
 - `DRONE_REPO_NAME`: your repository name, i.e.: 'BriteCore' or in this case `DroneAutoCancel`.
 
-## Setting up local dev environment
+## Setting up local dev environment (Manual)
 - Setup your local machines environmental variables as shown above.
 - Clone this repository on your machine.
 - `cd` into your repository directory.
@@ -42,5 +42,5 @@ ln -s /Applications/ngrok ngrok
 ![alt text](https://i.imgur.com/TU7bilO.png "Successful ping")
 
 
-## Local docker setup
+## Setting up local dev environment (Docker)
 > To be completed... (Coming soon)
