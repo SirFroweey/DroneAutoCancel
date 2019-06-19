@@ -29,10 +29,10 @@ ln -s /Applications/ngrok ngrok```
 - Run `python hook.py` on your terminal of choice
 - Execute `ngrok http 5000`
 - Setup your repo's Github webhook as shown below and point it to your `ngrok` `https` URL that we generated earlier (via the `ngrok http 5000` command):
-![alt text](https://imgur.com/kbhtFhK "URL and secret setup and response type")
-![alt text](https://imgur.com/HBogfyB "Event types")
+![alt text](https://i.imgur.com/kbhtFhK.png "URL and secret setup and response type")
+![alt text](https://i.imgur.com/HBogfyB.png "Event types")
 - The Github `event` event should report back as successful with a green `200` status code, as shown below:
-![alt text](https://imgur.com/TU7bilO "Successful ping")
+![alt text](https://i.imgur.com/TU7bilO.png "Successful ping")
 
 
 ## Local docker setup
