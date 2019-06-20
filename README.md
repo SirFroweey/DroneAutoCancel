@@ -51,8 +51,8 @@ ln -s /Applications/ngrok ngrok
 
 1. Install Docker
 2. `docker login`
-3. Run `docker run -p 8888:80 froweey/droneautocancel:latest`
-4. Navigate to `127.0.0.1:8888` on your web browser and ensure you get a 405 page, this signals a successful startup.
+3. Run `docker-compose up`
+4. Navigate to `127.0.0.1:5000/webhook` on your web browser and ensure you get a 405 page, this signals a successful startup.
 5. Download `ngrok` and move it into your `Applications/` folder.
 6. Create a symlink, as shown here: 
 
