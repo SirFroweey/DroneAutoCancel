@@ -13,6 +13,7 @@ The flask app then compares the sha1 `after` (hash) sent by either of those afor
 - `DRONE_TOKEN`: your personal access token displayed on your profile page on our drone server (listed above).
 - `DRONE_REPO_OWNER_USERNAME`: your github username, i.e.: `SirFroweey` is mine. Should be set to `IntuitiveWebSolutions` if we decide to host this app on our DevOps infrastructure.
 - `DRONE_REPO_NAME`: your repository name, i.e.: 'BriteCore' or in this case `DroneAutoCancel`.
+- `ONLY_PROCESS_PR_EVENTS`: Boolean, should our hook only process `pull_request` event types? Defaults to `False`.
 
 ## Setting up local dev environment (Manual)
 - Setup your local machines environmental variables as shown above.

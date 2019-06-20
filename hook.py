@@ -7,6 +7,7 @@ from flask import Flask, request, abort, jsonify
 from api import *
 
 WEBHOOK_VERIFY_TOKEN = os.getenv('WEBHOOK_VERIFY_TOKEN') # github web hook secret
+ONLY_PROCESS_PR_EVENTS = os.getenv('ONLY_PROCESS_PR_EVENTS', False) # boolean
 
 app = Flask(__name__)
 
@@ -31,7 +32,7 @@ def process_event(event_type, data):
         payload = {
             'success': True
         }
-    elif (event_type == 'pull_request') or (event_type == 'push'):
+    elif (event_type == 'pull_request') or (event_type == 'push' and not ONLY_PROCESS_PR_EVENTS):
         sha_hash = data['after'] # currently pushed commits sha1 hash 
         response = cancel_latest_build(sha_hash)
         payload = {'message': response[0]['message'], 'github_event_sha_hash': sha_hash, 'latest_drone_build_sha_hash': response[1]['after']}
