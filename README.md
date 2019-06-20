@@ -5,7 +5,7 @@
 On `push` and on `pull_request` events are sent to the flask web-hook app and is authenticated using a SECRET env var named `WEBHOOK_VERIFY_TOKEN`. This token is then compared with the SECRET setup on your Github web-hook settings page for your repository as shown below:
 ![alt text](https://i.imgur.com/kbhtFhK.png "URL and secret setup and response type")
 
-The flask app then compares the sha1 `ref` sent by either of those aforementioned `events` with the latest (last) Drone IO builds `hash`, if the hash do not match, that Drone build is then canceled (or stopped) via the Drone API. The Drone API agent is authenticated via a few env vars, listed below, so please assign these env vars on the machine running your web-hook.
+The flask app then compares the sha1 `after` (hash) sent by either of those aforementioned `events` with the latest (last) Drone IO builds `hash`, if the hash do not match, that Drone build is then canceled (or stopped) via the Drone API. The Drone API is authenticated via a few env vars, listed below, so please assign these env vars on the machine running your web-hook.
 
 ## ENV VARS Setup
 - `WEBHOOK_VERIFY_TOKEN`: A string, should be kept a secret; used to authenticate your app with Github's web-hook mechanism. This needs to match the `secret` value entered on your repo's webhook settings page.
@@ -16,7 +16,7 @@ The flask app then compares the sha1 `ref` sent by either of those aforementione
 
 ## Setting up local dev environment (Manual)
 - Setup your local machines environmental variables as shown above.
-- Clone this repository on your machine.
+- Clone this repository onto your machine.
 - `cd` into your repository directory.
 - Run `pip install -r requirements.txt` or even better, setup a virtualenv and activate it then install the requirements.
 - Download `ngrok` and move it into your `Applications/` folder.
@@ -47,4 +47,34 @@ ln -s /Applications/ngrok ngrok
 
 
 ## Setting up local dev environment (Docker)
-> To be completed... (Coming soon)
+> Experimental for now, ask @david for access to private repo.
+
+1. Install Docker
+2. `docker login`
+3. Run `docker run -p 8888:80 froweey/droneautocancel:latest`
+4. Navigate to `127.0.0.1:8888` on your web browser and ensure you get a 405 page, this signals a successful startup.
+5. Download `ngrok` and move it into your `Applications/` folder.
+6. Create a symlink, as shown here: 
+
+```
+# cd into your local bin directory
+cd /usr/local/bin
+
+# create symlink
+ln -s /Applications/ngrok ngrok
+```
+
+7. Run `python hook.py` on your terminal of choice
+8. Execute `ngrok http 5000`
+9. Setup your repo's Github webhook as shown below and point it to your `ngrok` `https` URL that we generated earlier (via the `ngrok http 5000` command):
+
+![alt text](https://i.imgur.com/kbhtFhK.png "URL and secret setup and response type")
+
+![alt text](https://i.imgur.com/HBogfyB.png "Event types")
+
+- The Github `event` event should report back as successful with a green `200` status code, as shown below:
+![alt text](https://i.imgur.com/TU7bilO.png "Successful ping")
+
+10. Pushing to your repository where you setup your web-hook (presumably your `BriteCore` fork), should report back with a successful `200` response as shown below:
+
+![alt text](https://i.imgur.com/BvcCk1s.png "Successful push")
