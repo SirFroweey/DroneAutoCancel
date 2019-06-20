@@ -16,5 +16,6 @@ ENV DRONE_SERVER https://drone.britecorepro.com
 ENV DRONE_TOKEN 6sg2A5TiXwJ79k50Fm7DVtRfEnbotkIt
 ENV DRONE_REPO_OWNER_USERNAME SirFroweey
 ENV DRONE_REPO_NAME BriteCore
+ENV ONLY_PROCESS_PR_EVENTS True
 
 CMD ["python", "run.py"]
