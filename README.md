@@ -64,9 +64,8 @@ cd /usr/local/bin
 ln -s /Applications/ngrok ngrok
 ```
 
-7. Run `python hook.py` on your terminal of choice
-8. Execute `ngrok http 5000`
-9. Setup your repo's Github webhook as shown below and point it to your `ngrok` `https` URL that we generated earlier (via the `ngrok http 5000` command):
+7. Execute `ngrok http 5000`
+8. Setup your repo's Github webhook as shown below and point it to your `ngrok` `https` URL that we generated earlier (via the `ngrok http 5000` command):
 
 ![alt text](https://i.imgur.com/kbhtFhK.png "URL and secret setup and response type")
 
@@ -75,6 +74,6 @@ ln -s /Applications/ngrok ngrok
 - The Github `event` event should report back as successful with a green `200` status code, as shown below:
 ![alt text](https://i.imgur.com/TU7bilO.png "Successful ping")
 
-10. Pushing to your repository where you setup your web-hook (presumably your `BriteCore` fork), should report back with a successful `200` response as shown below:
+9. Pushing to your repository where you setup your web-hook (presumably your `BriteCore` fork), should report back with a successful `200` response as shown below:
 
 ![alt text](https://i.imgur.com/BvcCk1s.png "Successful push")
