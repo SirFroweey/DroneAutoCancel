@@ -33,7 +33,7 @@ def process_event(event_type, data):
             'success': True
         }
     elif (event_type == 'pull_request') or (event_type == 'push' and not ONLY_PROCESS_PR_EVENTS):
-        sha_hash = data['after'] # currently pushed commits sha1 hash 
+        sha_hash = data['pull_request']['head']['sha'] # currently pushed commits sha1 hash 
         response = cancel_latest_build(sha_hash)
         payload = {'message': response[0]['message'], 'github_event_sha_hash': sha_hash, 'latest_drone_build_sha_hash': response[1]['after']}
     else:
