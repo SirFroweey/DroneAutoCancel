@@ -78,3 +78,6 @@ ln -s /Applications/ngrok ngrok
 9. Pushing to your repository where you setup your web-hook (presumably your `BriteCore` fork), should report back with a successful `200` response as shown below:
 
 ![alt text](https://i.imgur.com/BvcCk1s.png "Successful push")
+
+## Updates
+- It may be best to uncheck the `push` event from the Github web-hook settings page to prevent being spamming by `400` requests due to the `push` event being filtered out when setting the `ONLY_PROCESS_PR_EVENTS` environment variable to `True`.
