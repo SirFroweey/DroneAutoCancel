@@ -7,7 +7,7 @@ from flask import Flask, request, abort, jsonify
 from api import *
 
 WEBHOOK_VERIFY_TOKEN = os.getenv('WEBHOOK_VERIFY_TOKEN') # github web hook secret
-ONLY_PROCESS_PR_EVENTS = os.getenv('ONLY_PROCESS_PR_EVENTS', False) # boolean
+ONLY_PROCESS_PR_EVENTS = os.getenv('ONLY_PROCESS_PR_EVENTS') # boolean
 
 app = Flask(__name__)
 
@@ -33,16 +33,33 @@ def process_event(event_type, data):
             'success': True
         }
     elif (event_type == 'pull_request') or (event_type == 'push' and not ONLY_PROCESS_PR_EVENTS):
-        sha_hash = data['pull_request']['head']['sha'] # currently pushed commits sha1 hash 
+        sha_hash = (
+            data['pull_request']['head']['sha'] 
+            if event_type == 'pull_request' 
+            else data['after']
+         ) # currently pushed commits sha1 hash 
         response = cancel_latest_build(sha_hash)
-        payload = {'message': response[0]['message'], 'github_event_sha_hash': sha_hash, 'latest_drone_build_sha_hash': response[1]['after']}
+        cancel_json = response[0]
+        previous_build_json = response[1]
+        if cancel_json.has_key('status'):
+            status = cancel_json['status']
+        else:
+            status = 'action failed'
+        payload = {
+            'message': cancel_json['message'],
+            'status:': status,
+            'github_event_sha_hash': sha_hash,
+            'latest_drone_build_sha_hash': previous_build_json['after'],
+            'branch_name': previous_build_json['source'],
+            'drone_build_number': previous_build_json['number']
+        }
     else:
         abort(400, 'Unsupported event type -> {event}'.format(event=event_type))
     return jsonify(payload), 200
 
 
 def post_receive(request):
-    """Callback from Flask"""
+    """Github event method call back."""
     digest = get_digest(request)
 
     if digest is not None:

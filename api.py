@@ -53,21 +53,26 @@ class Drone:
         ).json()
         return stopped
 
+    def perform_sha_hash_check(self, compare_sha_hash, amount_to_check=2):
+        previous_build = {}
+        builds = self.get_builds()
+        for index in range(amount_to_check):
+            previous_build = builds[index]
+            if (compare_sha_hash and compare_sha_hash != previous_build['after']) or (not compare_sha_hash):
+                return (self.stop_build(previous_build['number']), previous_build)
+        response = {"message": "The given previous build cannot be the recently pushed Drone build we are attempting to stop."}
+        return (response, previous_build)
+
     def stop_latest_build(self, compare_sha_hash=None):
         """
-        Stop latest (last) build.
+        Stop latest (last) build. Iterates through build feed and finds recent 'running' builds and stops them.
         :param compare_sha_hash (optional) (str) -> to be provided by github web hook? To be used to ensure latest build is not the recently 
         pushed build.
 
         Returns tuple -> (json object, latest drone build json object).
         """
-        last_build = self.get_latest_build()
-        if (compare_sha_hash and compare_sha_hash != last_build['after']) or (not compare_sha_hash):
-            return (self.stop_build(last_build['number']), last_build)
-        else:
-            response = {"message": "Latest (last) build cannot be recently pushed build."}
-            return (response, last_build)
-
+        result = self.perform_sha_hash_check(compare_sha_hash, 2)
+        return result
 
 if __name__ == "__main__":
     api = Drone(DRONE_SERVER, DRONE_ACCESS_TOKEN, DRONE_REPO_OWNER_USERNAME, DRONE_REPO_NAME)
